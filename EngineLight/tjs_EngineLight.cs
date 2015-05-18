@@ -71,7 +71,7 @@ namespace EngineLight
 
                 //NOTE: We use the center part position, which may, or may not look bad
 
-                Transform tmpVector = engineModule.transform;
+                    Transform tmpVector = engineModule.thrustTransforms[0]; //At the first reactor
                 
 
 
@@ -115,7 +115,7 @@ namespace EngineLight
                 {
 
                     //Check for engine activity:
-                    if(engineModule.isActiveAndEnabled == true && engineLight.enabled == false)
+                    if(engineModule.finalThrust > 0)
                     {
                         engineLight.enabled = true;
                     }
@@ -128,14 +128,11 @@ namespace EngineLight
                     }
 
                     //Update light status:
-                    if (engineLight.enabled == true)
-                    {
+                    
                         //Intensity = lightIntensity / 100 * thrust  (Porcentage)
-                        
-                            engineLight.intensity = (lightPower / 100) * engineModule.thrustPercentage;
-                            engineLight.range = (lightRange / 100) * engineModule.thrustPercentage;
-
-                    }
+                        print(engineModule.thrustPercentage);
+                        engineLight.intensity = (lightPower / 100) * engineModule.thrustPercentage;
+                        engineLight.range = (lightRange / 100) * engineModule.thrustPercentage;
                     
                 }
             }
