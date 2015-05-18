@@ -66,28 +66,35 @@ namespace EngineLight
 
                 print("[EngineLight] Initialized part (" + this.part.partName + ") Proceeding to patch!");
 
-                //Make lights: 
+                //Make lights: (Using every thrust vector, may lag!!)
 
-                GameObject TengineLight = new GameObject();
-                TengineLight.AddComponent<Light>();
+                //NOTE: These vectors change orientation over flight, we don't care!
 
-                //Light Settings:
+                foreach (Transform tmpVector in engineModule.thrustTransforms)
+                {
 
-                TengineLight.light.type = LightType.Point;
-                TengineLight.light.range = lightRange; //For now, changes later!
-                TengineLight.light.color = lightColor;
-                TengineLight.light.intensity = 0.0f; //By default!
-                TengineLight.light.enabled = false; //For now!
 
-                //Transform Settings:
+                    GameObject TengineLight = new GameObject();
+                    TengineLight.AddComponent<Light>();
 
-                TengineLight.transform.parent = engineModule.light.transform;
-                TengineLight.transform.forward = engineModule.light.transform.forward; //not really required
-                TengineLight.transform.position = engineModule.light.transform.position;
+                    //Light Settings:
 
-                engineLight = TengineLight.light;
-                
-                //Done!
+                    TengineLight.light.type = LightType.Point;
+                    TengineLight.light.range = lightRange; //For now, changes later!
+                    TengineLight.light.color = lightColor;
+                    TengineLight.light.intensity = 0.0f; //By default!
+                    TengineLight.light.enabled = false; //For now!
+
+                    //Transform Settings:
+
+                    TengineLight.transform.parent = tmpVector.transform;
+                    TengineLight.transform.forward = tmpVector.transform.forward; //not really required
+                    TengineLight.transform.position = tmpVector.transform.position;
+
+                    engineLight = TengineLight.light;
+
+                    //Done!
+                }
             }
             catch(Exception exception)
             {
