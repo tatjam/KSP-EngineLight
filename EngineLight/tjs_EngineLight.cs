@@ -71,7 +71,7 @@ namespace EngineLight
 
                 //NOTE: We use the center part position, which may, or may not look bad
 
-                    Transform tmpVector = engineModule.thrustTransforms[0]; //At the first reactor
+                    Transform tmpVector = engineModule.thrustTransforms[0]; //At the first reactor (Sadly, only one! (Else it will lag, awaiting feedback!)
                 
 
 
@@ -130,9 +130,11 @@ namespace EngineLight
                     //Update light status:
                     
                         //Intensity = lightIntensity / 100 * thrust  (Porcentage)
-                        print(engineModule.thrustPercentage);
-                        engineLight.intensity = (lightPower / 100) * engineModule.thrustPercentage;
-                        engineLight.range = (lightRange / 100) * engineModule.thrustPercentage;
+                        //Calculate WORKING thrust percentage:
+                        float tmpThrust = engineModule.resultingThrust / engineModule.maxThrust * 100;
+                        print(tmpThrust);
+                        engineLight.intensity = (lightPower / 100) * tmpThrust;
+                        engineLight.range = (lightRange / 100) * tmpThrust;
                     
                 }
             }
