@@ -66,12 +66,13 @@ namespace EngineLight
 
                 print("[EngineLight] Initialized part (" + this.part.partName + ") Proceeding to patch!");
 
-                //Make lights: (Using every thrust vector, may lag!!)
+                //Make lights: (Using part position)
 
-                //NOTE: These vectors change orientation over flight, we don't care!
 
-                foreach (Transform tmpVector in engineModule.thrustTransforms)
-                {
+                //NOTE: We use the center part position, which may, or may not look bad
+
+                Transform tmpVector = engineModule.transform;
+                
 
 
                     GameObject TengineLight = new GameObject();
@@ -95,7 +96,7 @@ namespace EngineLight
 
                     //Done!
                 }
-            }
+            
             catch(Exception exception)
             {
                 Debug.LogError("[EngineLight] Error onStart: " + exception.Message);
