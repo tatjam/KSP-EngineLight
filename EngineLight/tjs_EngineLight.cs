@@ -38,7 +38,7 @@ namespace EngineLight
 
         //Not config-able until i know how to handle colors in config...
 
-        public Color lightColor = new Color(1, 0.93f, 0.71f); //A light orange color
+        public Color lightColor = new Color(1, 0.88f, 0.68f); //A light orange color
 
         public Light engineLight = null; //On minus!
 
@@ -101,7 +101,7 @@ namespace EngineLight
                     TengineLight.transform.forward = tmpVector.transform.forward; //not really required
                     Vector3 TPos = tmpVector.transform.position;
                     
-                    TengineLight.transform.position = new Vector3(TPos.x, TPos.y-TengineLight.transform.forward.y-0.3f, TPos.z);
+                    TengineLight.transform.position = new Vector3(TPos.x, TPos.y-TengineLight.transform.up.y-0.3f, TPos.z);
 
                     engineLight = TengineLight.light;
 
