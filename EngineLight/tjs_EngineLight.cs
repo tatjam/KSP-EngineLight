@@ -66,6 +66,15 @@ namespace EngineLight
 
                 print("[EngineLight] Initialized part (" + this.part.partName + ") Proceeding to patch!");
 
+                //Generate light power:
+                // (Thanks Excel!!) It's an almost perfect cuadratic function!
+
+                lightPower = -0.000001f * engineModule.maxThrust * engineModule.maxThrust + 0.0126f * engineModule.maxThrust + 1.6074f;
+
+                if(lightPower > 30f || engineModule.maxThrust > 5000)
+                {
+                    lightPower = 30f;
+                }
                 //Make lights: (Using part position)
 
 
@@ -90,7 +99,9 @@ namespace EngineLight
 
                     TengineLight.transform.parent = tmpVector.transform;
                     TengineLight.transform.forward = tmpVector.transform.forward; //not really required
-                    TengineLight.transform.position = tmpVector.transform.position;
+                    Vector3 TPos = tmpVector.transform.position;
+                    
+                    TengineLight.transform.position = new Vector3(TPos.x, TPos.y-TengineLight.transform.up.y-0.3f, TPos.z);
 
                     engineLight = TengineLight.light;
 
