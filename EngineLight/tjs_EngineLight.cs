@@ -36,9 +36,26 @@ namespace EngineLight
         [KSPField]
         public float lightRange = 15.0f; //Changes with thrust
 
+        [KSPField]
+        public float lightRed = 1.0f;
+        
+        [KSPField]
+        public float lightGreen = 0.88f;
+        
+        [KSPField]
+        public float lightBlue = 0.68f;
+        
+        //Changes with thrust
+        
         //Not config-able until i know how to handle colors in config...
-
-        public Color lightColor = new Color(1, 0.88f, 0.68f); //A light orange color
+        
+        public Color lightColor;
+        
+        void colorInit()
+        {
+            
+            lightColor = new Color(lightRed, lightGreen, lightBlue); //A light orange color
+        }
 
         public Light engineLight = null; //On minus!
 
@@ -88,6 +105,10 @@ namespace EngineLight
                 TengineLight.AddComponent<Light>();
 
                 //Light Settings:
+
+
+                //Update color from confg
+                colorInit();
 
                 TengineLight.light.type = LightType.Point;
                 TengineLight.light.range = lightRange; //For now, changes later!
@@ -191,7 +212,13 @@ namespace EngineLight
 
             //Not config-able until i know how to handle colors in config...
 
-            public Color lightColor = new Color(lightRed, lightBle, lightGreen); //A light orange color
+            public Color lightColor;
+
+            void colorInit()
+            {
+
+                lightColor = new Color(lightRed, lightGreen, lightBlue); //A light orange color
+            }
 
             public Light engineLight = null; //On minus!
 
@@ -240,7 +267,12 @@ namespace EngineLight
                     GameObject TengineLight = new GameObject();
                     TengineLight.AddComponent<Light>();
 
-                    //Light Settings:
+                    //Light Settings
+
+
+                    //Update color from confg
+
+                    colorInit();
 
                     TengineLight.light.type = LightType.Point;
                     TengineLight.light.range = lightRange; //For now, changes later!
