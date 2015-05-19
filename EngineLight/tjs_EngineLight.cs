@@ -136,7 +136,7 @@ namespace EngineLight
                 TengineLight.transform.forward = tmpVector.transform.forward; //not really required
                 Vector3 TPos = tmpVector.transform.position;
 
-                TengineLight.transform.position = new Vector3(TPos.x - TengineLight.transform.forward.x - 0.3f, TPos.y, TPos.z);
+                TengineLight.transform.position = new Vector3(TPos.x, TPos.y, TPos.z);
 
                 engineLight = TengineLight.light;
 
@@ -270,16 +270,15 @@ namespace EngineLight
                     //Generate light power:
                     // (Thanks Excel!!) It's an almost perfect cuadratic function!
 
-                    
-
-                    lightPower = (-0.000001f * engineModule.maxThrust * engineModule.maxThrust + 0.0126f * engineModule.maxThrust + 1.6074f) * lightPower; //Use the multiplier (1.1)
+                    float oldPow = lightPower;
+                    lightPower = (-0.0000004f * engineModule.maxThrust * engineModule.maxThrust + 0.0068f * engineModule.maxThrust + 0.1304f) * oldPow; //Use the multiplier (1.1)
 
                     if (lightPower > maxLightPower || engineModule.maxThrust > 5000)
                     {
                         lightPower = maxLightPower;
                     }
 
-                    
+
 
                     //Make lights: (Using part position)
 
@@ -311,7 +310,7 @@ namespace EngineLight
                     TengineLight.transform.forward = tmpVector.transform.forward; //not really required
                     Vector3 TPos = tmpVector.transform.position;
 
-                    TengineLight.transform.position = new Vector3(TPos.x, TPos.y - TengineLight.transform.forward.y - 0.3f, TPos.z);
+                    TengineLight.transform.position = new Vector3(TPos.x, TPos.y, TPos.z);
 
                     engineLight = TengineLight.light;
 
