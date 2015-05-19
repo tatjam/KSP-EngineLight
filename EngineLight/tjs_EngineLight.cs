@@ -176,11 +176,22 @@ namespace EngineLight
             public float lightPower = 1.0f;  //LightSource power (get's a porcentage based on thrust)
 
             [KSPField]
-            public float lightRange = 15.0f; //Changes with thrust
+            public float lightRange = 15.0f;
+            
+            [KSPField]
+            public float lightRed = 1.0f;
+            
+            [KSPField]
+            public float lightGreen = 0.88f;
+            
+            [KSPField]
+            public float lightBlue = 1.68f;
+            
+            //Changes with thrust
 
             //Not config-able until i know how to handle colors in config...
 
-            public Color lightColor = new Color(1, 0.88f, 0.68f); //A light orange color
+            public Color lightColor = new Color(lightRed, lightBle, lightGreen); //A light orange color
 
             public Light engineLight = null; //On minus!
 
