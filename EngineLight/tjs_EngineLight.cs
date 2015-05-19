@@ -96,8 +96,8 @@ namespace EngineLight
                 //Generate light power:
                 // (Thanks Excel!!) It's an almost perfect cuadratic function!
 
-              
-                lightPower = (-0.0000004f * engineModule.maxThrust * engineModule.maxThrust + 0.0066f * engineModule.maxThrust + 0.1653f) * lightPower; //Use the multiplier (1.1)
+                float oldPow = lightPower;
+                lightPower = (-0.0000004f * engineModule.maxThrust * engineModule.maxThrust + 0.0068f * engineModule.maxThrust + 0.1304f) * oldPow; //Use the multiplier (1.1)
 
                 if (lightPower > maxLightPower || engineModule.maxThrust > 5000)
                 {
