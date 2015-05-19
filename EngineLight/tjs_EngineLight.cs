@@ -2,6 +2,11 @@
  *          [KSP] Engine Light Mod 
  *          Made by Tatjam (Tajampi)  
  *                TajamSoft
+ *         ---------------------------
+ *               Contributors: 
+ *                Saabstory88
+ *                
+ *                
  *--------------------------------------------------
  *
  * Notes:
@@ -27,18 +32,39 @@ namespace EngineLight
     public class tjs_EngineLight : PartModule
     {
         //Variables:
-
+        [KSPField]
         public bool isDebug = true; //for now!
 
         [KSPField]
         public float lightPower = 1.0f;  //LightSource power (get's a porcentage based on thrust)
 
         [KSPField]
-        public float lightRange = 15.0f; //Changes with thrust
+        public float maxLightPower = 27.0f; //LightSource clamped power
+
+        [KSPField]
+        public float lightRange = 15.0f; 
+
+        [KSPField]
+        public float lightRed = 1.0f;
+
+        [KSPField]
+        public float lightGreen = 0.88f;
+
+        [KSPField]
+        public float lightBlue = 0.68f;
+
+
+        //Changes with thrust
 
         //Not config-able until i know how to handle colors in config...
 
-        public Color lightColor = new Color(1, 0.88f, 0.68f); //A light orange color
+        public Color lightColor;
+
+        void colorInit()
+        {
+
+            lightColor = new Color(lightRed, lightGreen, lightBlue); //A light orange color
+        }
 
         public Light engineLight = null; //On minus!
 
@@ -63,22 +89,27 @@ namespace EngineLight
                 {
                     return; //Beware the bugs!
                 }
-
+                
+                
                 print("[EngineLight] Initialized part (" + this.part.partName + ") Proceeding to patch!");
-
+                
                 //Generate light power:
                 // (Thanks Excel!!) It's an almost perfect cuadratic function!
 
-                lightPower = -0.000001f * engineModule.maxThrust * engineModule.maxThrust + 0.0126f * engineModule.maxThrust + 1.6074f;
+              
+                lightPower = (-0.000001f * engineModule.maxThrust * engineModule.maxThrust + 0.0126f * engineModule.maxThrust + 1.6074f) * lightPower; //Use the multiplier (1.1)
 
-                if (lightPower > 30f || engineModule.maxThrust > 5000)
+                if (lightPower > maxLightPower || engineModule.maxThrust > 5000)
                 {
-                    lightPower = 30f;
+                    lightPower = maxLightPower;
                 }
+
+                
+
                 //Make lights: (Using part position)
 
 
-                //NOTE: We use the center part position, which may, or may not look bad
+                //NOTE: We use the thrust transform[0] to place the light
 
                 Transform tmpVector = engineModule.thrustTransforms[0]; //At the first reactor (Sadly, only one! (Else it will lag, awaiting feedback!)
 
@@ -88,6 +119,10 @@ namespace EngineLight
                 TengineLight.AddComponent<Light>();
 
                 //Light Settings:
+
+
+                //Update color from confg
+                colorInit();
 
                 TengineLight.light.type = LightType.Point;
                 TengineLight.light.range = lightRange; //For now, changes later!
@@ -106,6 +141,8 @@ namespace EngineLight
                 engineLight = TengineLight.light;
 
                 //Done!
+
+                print("[EngineLight] Light calculations (" + this.part.partName + ") resulted in:" + lightPower);
             }
 
             catch (Exception exception)
@@ -165,22 +202,43 @@ namespace EngineLight
 
         //FXENGINE MODULE: (Why SQUAD, why...)
         //This module is for engines using EnginesFx
-        
+
         public class tjs_EngineLightFX : PartModule
         {
             //Variables:
-
+            [KSPField]
             public bool isDebug = true; //for now!
 
             [KSPField]
             public float lightPower = 1.0f;  //LightSource power (get's a porcentage based on thrust)
 
             [KSPField]
-            public float lightRange = 15.0f; //Changes with thrust
+            public float maxLightPower = 27.0f; //LightSource clamped power
+
+            [KSPField]
+            public float lightRange = 15.0f;
+
+            [KSPField]
+            public float lightRed = 1.0f;
+
+            [KSPField]
+            public float lightGreen = 0.88f;
+
+            [KSPField]
+            public float lightBlue = 0.68f;
+
+
+            //Changes with thrust
 
             //Not config-able until i know how to handle colors in config...
 
-            public Color lightColor = new Color(1, 0.88f, 0.68f); //A light orange color
+            public Color lightColor;
+
+            void colorInit()
+            {
+
+                lightColor = new Color(lightRed, lightGreen, lightBlue); //A light orange color
+            }
 
             public Light engineLight = null; //On minus!
 
@@ -206,21 +264,27 @@ namespace EngineLight
                         return; //Beware the bugs!
                     }
 
+
                     print("[EngineLight] Initialized part (" + this.part.partName + ") Proceeding to patch!");
 
                     //Generate light power:
                     // (Thanks Excel!!) It's an almost perfect cuadratic function!
 
-                    lightPower = -0.000001f * engineModule.maxThrust * engineModule.maxThrust + 0.0126f * engineModule.maxThrust + 1.6074f;
+                    
 
-                    if (lightPower > 30f || engineModule.maxThrust > 5000)
+                    lightPower = (-0.000001f * engineModule.maxThrust * engineModule.maxThrust + 0.0126f * engineModule.maxThrust + 1.6074f) * lightPower; //Use the multiplier (1.1)
+
+                    if (lightPower > maxLightPower || engineModule.maxThrust > 5000)
                     {
-                        lightPower = 30f;
+                        lightPower = maxLightPower;
                     }
+
+                    
+
                     //Make lights: (Using part position)
 
 
-                    //NOTE: We use the center part position, which may, or may not look bad
+                    //NOTE: We use the thrust transform[0] to place the light
 
                     Transform tmpVector = engineModule.thrustTransforms[0]; //At the first reactor (Sadly, only one! (Else it will lag, awaiting feedback!)
 
@@ -230,6 +294,10 @@ namespace EngineLight
                     TengineLight.AddComponent<Light>();
 
                     //Light Settings:
+
+
+                    //Update color from confg
+                    colorInit();
 
                     TengineLight.light.type = LightType.Point;
                     TengineLight.light.range = lightRange; //For now, changes later!
@@ -248,6 +316,8 @@ namespace EngineLight
                     engineLight = TengineLight.light;
 
                     //Done!
+
+                    print("[EngineLight] Light calculations (" + this.part.partName + ") resulted in:" + lightPower);
                 }
 
                 catch (Exception exception)
