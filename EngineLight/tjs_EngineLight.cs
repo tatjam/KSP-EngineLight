@@ -185,7 +185,7 @@ namespace EngineLight
             public float lightGreen = 0.88f;
             
             [KSPField]
-            public float lightBlue = 1.68f;
+            public float lightBlue = 0.68f;
             
             //Changes with thrust
 
