@@ -72,13 +72,9 @@ namespace EngineLight
             get
             {
                 if (this._engineModule == null)
-<<<<<<< HEAD
-                  this._engineModule = part.FindModuleImplementing<ModuleEngines>();//SpaceTiger: No need for duplicate code. ModuleEnginesFX is a derivative of ModuleEngines so searching for ModuleEngines will get all the ModuleEnginesFX too.
-                    //this._engineModule = (ModuleEngines)this.part.Modules["ModuleEngines"];
-=======
                     this._engineModule = part.FindModuleImplementing<ModuleEngines>();
                 //SpaceTiger: No need for duplicate code. ModuleEnginesFX is a derivative of ModuleEngines so searching for ModuleEngines will get all the ModuleEnginesFX too
->>>>>>> 7f6e44ebc8ecced5d823a2e0be442660b553c303
+                
                 return this._engineModule;
             }
         }
