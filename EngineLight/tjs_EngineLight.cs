@@ -196,12 +196,7 @@ namespace EngineLight
                 Debug.Log(text);
             }
         }
-<<<<<<< HEAD
-=======
-
-
         //FXEngine module is not anymore there!
-
->>>>>>> 7f6e44ebc8ecced5d823a2e0be442660b553c303
+        
     }
 }
