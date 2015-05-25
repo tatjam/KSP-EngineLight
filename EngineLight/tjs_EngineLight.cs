@@ -5,7 +5,7 @@
  *         ---------------------------
  *               Contributors: 
  *                Saabstory88
- *                
+ *            SpaceTiger (aka Xarun)
  *                
  *--------------------------------------------------
  *
@@ -38,7 +38,7 @@ namespace EngineLight
         public float maxLightPower = 27.0f; //LightSource clamped power
 
         [KSPField]
-        public float lightRange = 15.0f; 
+        public float lightRange = 15.0f;
 
         [KSPField]
         public float lightRed = 1.0f;
@@ -72,8 +72,13 @@ namespace EngineLight
             get
             {
                 if (this._engineModule == null)
+<<<<<<< HEAD
                   this._engineModule = part.FindModuleImplementing<ModuleEngines>();//SpaceTiger: No need for duplicate code. ModuleEnginesFX is a derivative of ModuleEngines so searching for ModuleEngines will get all the ModuleEnginesFX too.
                     //this._engineModule = (ModuleEngines)this.part.Modules["ModuleEngines"];
+=======
+                    this._engineModule = part.FindModuleImplementing<ModuleEngines>();
+                //SpaceTiger: No need for duplicate code. ModuleEnginesFX is a derivative of ModuleEngines so searching for ModuleEngines will get all the ModuleEnginesFX too
+>>>>>>> 7f6e44ebc8ecced5d823a2e0be442660b553c303
                 return this._engineModule;
             }
         }
@@ -86,10 +91,10 @@ namespace EngineLight
                 {
                     return; //Beware the bugs!
                 }
-                
-                
+
+
                 print("[EngineLight] Initialized part (" + this.part.partName + ") Proceeding to patch!");
-                
+
                 //Generate light power:
                 // (Thanks Excel!!) It's an almost perfect cuadratic function!
 
@@ -101,7 +106,7 @@ namespace EngineLight
                     lightPower = maxLightPower;
                 }
 
-                
+
 
                 //Make lights: (Using part position)
 
@@ -133,7 +138,7 @@ namespace EngineLight
                 TengineLight.transform.forward = tmpVector.transform.forward; //not really required
                 Vector3 TPos = tmpVector.transform.position;
 
-                TengineLight.transform.position = new Vector3(TPos.x - TengineLight.transform.forward.x - 0.3f, TPos.y, TPos.z);
+                TengineLight.transform.position = new Vector3(TPos.x, TPos.y, TPos.z);
 
                 engineLight = TengineLight.light;
 
@@ -195,5 +200,12 @@ namespace EngineLight
                 Debug.Log(text);
             }
         }
+<<<<<<< HEAD
+=======
+
+
+        //FXEngine module is not anymore there!
+
+>>>>>>> 7f6e44ebc8ecced5d823a2e0be442660b553c303
     }
 }
