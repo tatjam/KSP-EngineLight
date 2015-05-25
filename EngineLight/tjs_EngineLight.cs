@@ -17,10 +17,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace EngineLight
@@ -78,6 +74,7 @@ namespace EngineLight
                 if (this._engineModule == null)
                     this._engineModule = part.FindModuleImplementing<ModuleEngines>();
                 //SpaceTiger: No need for duplicate code. ModuleEnginesFX is a derivative of ModuleEngines so searching for ModuleEngines will get all the ModuleEnginesFX too
+                
                 return this._engineModule;
             }
         }
@@ -199,9 +196,7 @@ namespace EngineLight
                 Debug.Log(text);
             }
         }
-
-
         //FXEngine module is not anymore there!
-
+        
     }
 }
