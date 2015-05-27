@@ -53,6 +53,8 @@ namespace EngineLight
         [KSPField]
         public float lightBlue = 0.68f;
 
+        [KSPField]
+        public float jitterMultiplier = 4.5f; //Remember jitter is a Random value between 0 and 1, and we calculate thrust using percentage
 
         //Changes with thrust
 
@@ -175,11 +177,16 @@ namespace EngineLight
 
                     //Update light status:
 
-                    //Intensity = lightIntensity / 100 * thrust  (Porcentage)
+                    //Intensity = lightIntensity / 100 * thrust  (Percentage)
                     //Calculate WORKING thrust percentage:
                     if (engineModule.resultingThrust > 0)
                     {
-                        float tmpThrust = engineModule.resultingThrust / engineModule.maxThrust * 100;
+                        float tmpRand = UnityEngine.Random.value * jitterMultiplier;  //Noisy Random, could use a Perlin Noise
+                        float tmpThrust = engineModule.resultingThrust / engineModule.maxThrust * 100 + tmpRand;
+                        if(tmpThrust < 0)  //Due to jitter, it might get under 0, if it happens, then make the number not calculated with jitter
+                        {
+                            tmpThrust = engineModule.resultingThrust / engineModule.maxThrust * 100;
+                        }
                         engineLight.intensity = (lightPower / 100) * tmpThrust;
                         engineLight.range = (lightRange / 100) * tmpThrust;
                     }
