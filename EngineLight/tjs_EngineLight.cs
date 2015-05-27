@@ -93,7 +93,6 @@ namespace EngineLight
                     return; //Beware the bugs!
                 }
 
-
                 print("[EngineLight] Initialized part (" + this.part.partName + ") Proceeding to patch!");
 
                 //Generate light power:
@@ -133,13 +132,12 @@ namespace EngineLight
                 TengineLight.light.enabled = false; //For now!
 
                 //Transform Settings:
-
                 TengineLight.transform.parent = tmpVector.transform;
                 TengineLight.transform.forward = tmpVector.transform.forward; //not really required
                 Vector3 TPos = tmpVector.transform.position;
 
                 TengineLight.transform.position = new Vector3(TPos.x, TPos.y, TPos.z);
-
+                TengineLight.transform.localPosition = new Vector3(TengineLight.transform.localPosition.x + engineModule.fxOffset.x, TengineLight.transform.localPosition.y + engineModule.fxOffset.y, TengineLight.transform.localPosition.z + engineModule.fxOffset.z);
                 engineLight = TengineLight.light;
 
                 //Done!
