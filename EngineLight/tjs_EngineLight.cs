@@ -54,7 +54,7 @@ namespace EngineLight
         public float lightBlue = 0.68f;
 
         [KSPField]
-        public float jitterMultiplier = 4.5f; //Remember jitter is a Random value between 0 and 1, and we calculate thrust using percentage
+        public float jitterMultiplier = 10.5f; //Remember jitter is a Random value between 0 and 1, and we calculate thrust using percentage
 
         //Changes with thrust
 
@@ -115,7 +115,6 @@ namespace EngineLight
                 //NOTE: We use the thrust transform[0] to place the light
 
                 Transform tmpVector = engineModule.thrustTransforms[0]; //At the first reactor (Sadly, only one! (Else it will lag, awaiting feedback!)
-
 
 
                 GameObject TengineLight = new GameObject();
