@@ -56,6 +56,9 @@ namespace EngineLight
         [KSPField]
         public float jitterMultiplier = 10.5f; //Remember jitter is a Random value between 0 and 1, and we calculate thrust using percentage
 
+        [KSPField]
+        public bool disableOnIVA = false; //By default false, i personally like the look of lights on IVA!
+
         //Changes with thrust
 
         //Not config-able until i know how to handle colors in config...
@@ -162,32 +165,42 @@ namespace EngineLight
                 if (engineLight != null)  //Make sure the light exists!
                 {
 
-                    //Check for engine activity:
-                    if (engineModule.finalThrust > 0)
+                    if (Utils.isIVA() && disableOnIVA)
                     {
-                        engineLight.enabled = true;
-                    }
+                        //Check for engine activity:
+                        if (engineModule.finalThrust > 0)
+                        {
+                            engineLight.enabled = true;
+                        }
+                        else
+                        {
+                            engineLight.enabled = false;
+                        }
+
+                        //Update light status:
+
+                        //Intensity = lightIntensity / 100 * thrust  (Percentage)
+                        //Calculate WORKING thrust percentage:
+                        if (engineModule.resultingThrust > 0)
+                        {
+                            float tmpRand = UnityEngine.Random.value * jitterMultiplier;  //Noisy Random, could use a Perlin Noise
+                            float tmpThrust = engineModule.resultingThrust / engineModule.maxThrust * 100 + tmpRand;
+                            if (tmpThrust < 0)  //Due to jitter, it might get under 0, if it happens, then make the number not calculated with jitter
+                            {
+                                tmpThrust = engineModule.resultingThrust / engineModule.maxThrust * 100;
+                            }
+                            engineLight.intensity = (lightPower / 100) * tmpThrust;
+                            engineLight.range = (lightRange / 100) * tmpThrust;
+                        }
+
+                    }  
                     else
                     {
+                        //Disable all light stuff, perfomance!
+                        engineLight.intensity = 0;
+                        engineLight.range = 0;
                         engineLight.enabled = false;
                     }
-
-                    //Update light status:
-
-                    //Intensity = lightIntensity / 100 * thrust  (Percentage)
-                    //Calculate WORKING thrust percentage:
-                    if (engineModule.resultingThrust > 0)
-                    {
-                        float tmpRand = UnityEngine.Random.value * jitterMultiplier;  //Noisy Random, could use a Perlin Noise
-                        float tmpThrust = engineModule.resultingThrust / engineModule.maxThrust * 100 + tmpRand;
-                        if(tmpThrust < 0)  //Due to jitter, it might get under 0, if it happens, then make the number not calculated with jitter
-                        {
-                            tmpThrust = engineModule.resultingThrust / engineModule.maxThrust * 100;
-                        }
-                        engineLight.intensity = (lightPower / 100) * tmpThrust;
-                        engineLight.range = (lightRange / 100) * tmpThrust;
-                    }
-
                 }
             }
             catch (Exception ex)

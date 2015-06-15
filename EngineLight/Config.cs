@@ -8,8 +8,12 @@ using UnityEngine;
 namespace EngineLight
 {
     //This class contains utils for saving the config!
-    //Thanks planetshine for inspiration!
+    //Thanks planetshine for the source code, this is based on it!
+    
+    //We are not yet going for 1.4, so all this is disabled!
+    //REMEMBER TO RE-ENABLE IT!!
 
+    /*
     public sealed class Config
     {
         private static readonly Config instance = new Config();
@@ -108,4 +112,5 @@ namespace EngineLight
         }
 
     }
+     */
 }
