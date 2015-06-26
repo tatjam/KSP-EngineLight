@@ -14,6 +14,7 @@
  *  I'm implementing my own light, to make sure i don't break anything
  * 
  * 
+ * 
  */
 
 using System;
@@ -57,7 +58,7 @@ namespace EngineLight
         public float jitterMultiplier = 10.5f; //Remember jitter is a Random value between 0 and 1, and we calculate thrust using percentage
 
         [KSPField]
-        public bool disableOnIVA = false; //By default false, i personally like the look of lights on IVA!
+        public float multiplierOnIva = 0.4f;
 
         //Changes with thrust
 
@@ -165,7 +166,7 @@ namespace EngineLight
                 if (engineLight != null)  //Make sure the light exists!
                 {
 
-                    if (Utils.isIVA() && disableOnIVA)
+                    if (!(Utils.isIVA() && multiplierOnIva == 0.0f))
                     {
                         //Check for engine activity:
                         if (engineModule.finalThrust > 0)
@@ -191,6 +192,11 @@ namespace EngineLight
                             }
                             engineLight.intensity = (lightPower / 100) * tmpThrust;
                             engineLight.range = (lightRange / 100) * tmpThrust;
+
+                            if(Utils.isIVA() && multiplierOnIva < 1.0f)
+                            {
+                                engineLight.intensity = engineLight.intensity * multiplierOnIva;
+                            }
                         }
 
                     }  
