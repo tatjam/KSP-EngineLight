@@ -60,6 +60,8 @@ namespace EngineLight
         [KSPField]
         public float multiplierOnIva = 0.4f;
 
+        public GlobalManager gm;
+
         //Changes with thrust
 
         //Not config-able until i know how to handle colors in config...
@@ -98,6 +100,7 @@ namespace EngineLight
                 {
                     return; //Beware the bugs!
                 }
+
 
                 print("[EngineLight] Initialized part (" + this.part.partName + ") Proceeding to patch!");
 
@@ -147,6 +150,12 @@ namespace EngineLight
                 engineLight = TengineLight.light;
 
                 //Done!
+                gm = GameObject.FindObjectOfType<EngineLight.GlobalManager>(); //Make sure we don't find the wrong one!
+                if(!gm.eLights.Contains(this))
+                {
+                    gm.eLights.Add(this);
+                }
+                
 
                 print("[EngineLight] Light calculations (" + this.part.partName + ") resulted in:" + lightPower);
             }
@@ -216,6 +225,8 @@ namespace EngineLight
                 Debug.LogError("[EngineLight] Error onUpdate: " + ex.Message);
             }
         }
+
+       
         //Useful, checks for debug before printing, do not use if message is important
         public void print(object text)
         {

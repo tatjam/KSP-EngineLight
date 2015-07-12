@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="GlobalManager.cs" />
+    <Compile Include="LightConcentration.cs" />
     <Compile Include="tjs_DecouplerLight.cs" />
     <Compile Include="tjs_EngineLight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
