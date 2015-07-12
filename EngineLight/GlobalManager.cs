@@ -8,7 +8,7 @@ using UnityEngine;
 namespace EngineLight
 {
     [KSPAddon(KSPAddon.Startup.Flight, false)]
-    class GlobalManager : MonoBehaviour
+    public class GlobalManager : MonoBehaviour
     {
         public List<LightConcentration> lightLocations;
         public List<tjs_EngineLight> eLights;

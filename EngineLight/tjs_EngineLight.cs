@@ -150,7 +150,7 @@ namespace EngineLight
                 engineLight = TengineLight.light;
 
                 //Done!
-                gm = GameObject.FindObjectOfType<EngineLight.GlobalManager>(); //Make sure we don't find the wrong one!
+                gm = GameObject.FindObjectOfType<GlobalManager>(); //Make sure we don't find the wrong one!
                 if(!gm.eLights.Contains(this))
                 {
                     gm.eLights.Add(this);
