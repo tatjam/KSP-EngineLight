@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace EngineLight
@@ -76,13 +75,13 @@ namespace EngineLight
                     decouplerLightGM.transform.position = decouplerModule.transform.position;
                     decouplerLightGM.transform.parent = decouplerModule.transform;
 
-                    decouplerLightGM.light.range = lightRange;
+                    decouplerLightGM.GetComponent<Light>().range = lightRange;
 
-                    decouplerLightGM.light.intensity = decouplerModule.ejectionForce / 30 * lightMultiplier; //The huge decoupler thing generates a light of 25
+                    decouplerLightGM.GetComponent<Light>().intensity = decouplerModule.ejectionForce / 30 * lightMultiplier; //The huge decoupler thing generates a light of 25
 
-                    decouplerLightGM.light.color = new Color(lightRed, lightGreen, lightBlue);
+                    decouplerLightGM.GetComponent<Light>().color = new Color(lightRed, lightGreen, lightBlue);
 
-                    decouplerLight = decouplerLightGM.light;
+                    decouplerLight = decouplerLightGM.GetComponent<Light>();
 
                     decouplerLight.enabled = false;
                 }
@@ -92,13 +91,13 @@ namespace EngineLight
                     decouplerLightGM.transform.position = decouplerModuleA.transform.position;
                     decouplerLightGM.transform.parent = decouplerModuleA.transform;
 
-                    decouplerLightGM.light.range = lightRange;
+                    decouplerLightGM.GetComponent<Light>().range = lightRange;
 
-                    decouplerLightGM.light.intensity = decouplerModuleA.ejectionForce / 30; //The huge decoupler thing generates a light of 25
+                    decouplerLightGM.GetComponent<Light>().intensity = decouplerModuleA.ejectionForce / 30; //The huge decoupler thing generates a light of 25
 
-                    decouplerLightGM.light.color = new Color(lightRed, lightGreen, lightBlue);
+                    decouplerLightGM.GetComponent<Light>().color = new Color(lightRed, lightGreen, lightBlue);
 
-                    decouplerLight = decouplerLightGM.light;
+                    decouplerLight = decouplerLightGM.GetComponent<Light>();
 
                     decouplerLight.enabled = false;
                 }
@@ -109,6 +108,9 @@ namespace EngineLight
                 Debug.LogError("[DecouplerLight] Error onStart: " + e.Message);
             }
         }
+
+
+
 
         public override void OnUpdate()
         {

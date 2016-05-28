@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using UnityEngine;
-
+/*
 namespace EngineLight
 {
     //This class contains utils for saving the config!
@@ -12,8 +12,11 @@ namespace EngineLight
     
     //We are not yet going for 1.4, so all this is disabled!
     //REMEMBER TO RE-ENABLE IT!!
+    
 
-    /*
+    //This thing makes sure we don't have multiple configs
+
+        /*
     public sealed class Config
     {
         private static readonly Config instance = new Config();
@@ -40,7 +43,7 @@ namespace EngineLight
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class ConfigManager : MonoBehaviour
     {
-        public static ConfigManager Instance { get; private set; }
+        public static ConfigManager instance { get; private set; }
         private Config config = Config.Instance;
         private ConfigNode configFile;
         private ConfigNode configFileNode;
@@ -58,7 +61,7 @@ namespace EngineLight
 
         public void LoadSettings()
         {
-            configFile = ConfigNode.Load(pathToConfig);
+            configFile = KSP.IO.ConfigNode.Load(pathToConfig);
             configFileNode = configFile.GetNode("EngineLight");
 
             if (bool.Parse(configFileNode.GetValue("isDebug")))
@@ -112,5 +115,7 @@ namespace EngineLight
         }
 
     }
-     */
+
+    
 }
+*/
